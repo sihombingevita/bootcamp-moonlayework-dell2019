@@ -15,7 +15,7 @@ namespace Employees
             {
                 return new MenuItem[]
                 {
-                    new MenuItem("/employees", "Employee", 200)
+                    new MenuItem("/employee", "Employee", 200)
                 };
             }
         }

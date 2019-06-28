@@ -6,13 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Barebone.Controllers
 {
-  public abstract class ControllerBase : Controller
-  {
-    protected IStorage Storage { get; private set; }
-
-    public ControllerBase(IStorage storage)
+    public abstract class ControllerBase : Controller
     {
-      this.Storage = storage;
+        protected IStorage Storage { get; private set; }
+
+        public ControllerBase(IStorage storage)
+        {
+            this.Storage = storage;
+        }
+
+        protected string GetCurrentUserName()
+        {
+            var claim = (System.Security.Claims.ClaimsIdentity)User.Identity;
+            var name = claim.FindFirst("name");
+
+            return name.Value;
+        }
     }
-  }
 }
