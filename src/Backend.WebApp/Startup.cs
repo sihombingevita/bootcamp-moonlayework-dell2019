@@ -30,7 +30,7 @@ namespace WebApplication
             services.AddExtCore(this._extensionsPath);
             services.Configure<StorageContextOptions>(options =>
                 {
-                    options.ConnectionString = this._configuration.GetConnectionString("Default");
+                    options.ConnectionString = this._configuration.GetConnectionString("SQlServer");
                     options.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
 
                 }
