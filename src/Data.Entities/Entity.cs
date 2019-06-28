@@ -9,9 +9,9 @@ namespace Data.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public DateTimeOffset Created { get; set; }
 
+        [Required]
         [MaxLength(64)]
         public string CreatedBy { get; set; }
 

@@ -9,7 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Employee\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Barebone\Barebone.csproj" />
+    <ProjectReference Include="..\Employees.Data.Abstractions\Employees.Data.Abstractions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
