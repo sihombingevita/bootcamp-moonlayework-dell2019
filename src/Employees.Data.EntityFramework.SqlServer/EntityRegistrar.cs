@@ -15,6 +15,8 @@ namespace Employees.Data.EntityFramework.SqlServer
                 etb.ToTable("Employees");
                 etb.HasKey(e => e.Id);
 
+                etb.Property(p => p.FirstName).HasMaxLength(64).IsRequired();
+
                 etb.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
