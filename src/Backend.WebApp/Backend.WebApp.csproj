@@ -10,6 +10,7 @@
     <PackageReference Include="ExtCore.Data" Version="4.0.0" />
     <PackageReference Include="ExtCore.Mvc" Version="4.0.0" />
     <PackageReference Include="ExtCore.WebApplication" Version="4.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

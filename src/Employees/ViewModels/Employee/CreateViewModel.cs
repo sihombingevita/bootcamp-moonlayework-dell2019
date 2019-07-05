@@ -7,7 +7,7 @@ namespace Employees.ViewModels.Employee
     public class CreateViewModel
     {
         [Display(Name = "First Name")]
-        [Required]
+        [Required()]
         public string FirstName { get; set; }
 
         internal Data.Entities.Employee ToEntity(string username)
