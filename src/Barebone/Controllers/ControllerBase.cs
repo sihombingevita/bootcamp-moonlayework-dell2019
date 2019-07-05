@@ -20,7 +20,7 @@ namespace Barebone.Controllers
             var claim = (System.Security.Claims.ClaimsIdentity)User.Identity;
             var name = claim.FindFirst("name");
 
-            return name.Value;
+            return name == null ? "Unknown" : name.Value;
         }
     }
 }
