@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Employees.Controllers
 {
+    //[Authorize]
     public class EmployeeController : Barebone.Controllers.ControllerBase
     {
         public EmployeeController(IStorage storage) : base(storage)
@@ -18,7 +19,6 @@ namespace Employees.Controllers
             return View(new EmpIndexViewModelFactory().Create(this.Storage));
         }
 
-        [Authorize]
         public ActionResult Create()
         {
             var model = new CreateViewModel();
@@ -38,7 +38,7 @@ namespace Employees.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(model);
         }
     }
 }

@@ -65,19 +65,36 @@ namespace WebApplication
                 }
             );
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "My API", Version = "v1" });
+            });
+
             DesignTimeStorageContextFactory.Initialize(services.BuildServiceProvider());
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment host)
         {
-            if (hostingEnvironment.IsDevelopment())
+            if (host.IsDevelopment())
             {
-                applicationBuilder.UseDeveloperExceptionPage();
-                applicationBuilder.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
 
-            applicationBuilder.UseAuthentication();
-            applicationBuilder.UseExtCore();
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            app.UseAuthentication();
+            app.UseExtCore();
+
+            //applicationBuilder.UseMvc();
         }
     }
 }
