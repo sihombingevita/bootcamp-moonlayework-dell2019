@@ -21,13 +21,13 @@ namespace Employees.Controllers.Api
         [HttpGet]
         public IActionResult Get(int page = 0, int size = 25)
         {
-            IEnumerable<Employee> data = new EmpIndexViewModelFactory().Create(this.Storage)?.Employees;
+            IEnumerable<Employee> data = new EmpIndexViewModelFactory().Create(this.Storage, page, size)?.Employees;
             int count = data.Count();
 
             return Ok(new
             {
                 success = true,
-                data = data.OrderBy(o => o.FirstName).Skip(page * size).Take(size),
+                data = data,
                 count,
                 totalPage = ((int)count / size) + 1
             });
