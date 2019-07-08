@@ -14,9 +14,9 @@ namespace Employees.Controllers
         {
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 0, int size = 25)
         {
-            return View(new EmpIndexViewModelFactory().Create(this.Storage));
+            return View(new EmpIndexViewModelFactory().Create(this.Storage, page, size));
         }
 
         public ActionResult Create()
