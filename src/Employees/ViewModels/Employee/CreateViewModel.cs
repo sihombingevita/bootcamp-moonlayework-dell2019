@@ -10,13 +10,11 @@ namespace Employees.ViewModels.Employee
         [Required()]
         public string FirstName { get; set; }
 
-        internal Data.Entities.Employee ToEntity(string username)
+        internal Data.Entities.Employee ToEntity()
         {
             return new Data.Entities.Employee
             {
-                FirstName = this.FirstName,
-                Created = DateTimeOffset.Now,
-                CreatedBy = username
+                FirstName = this.FirstName
             };
         }
     }

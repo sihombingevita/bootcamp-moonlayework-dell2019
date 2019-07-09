@@ -45,7 +45,7 @@ namespace IdentityWeb
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "ework" }
                 },
                 // resource owner password grant client
                 new Client
@@ -88,24 +88,38 @@ namespace IdentityWeb
                 {
                     ClientId = "ework-admin-dev",
                     ClientName = "Admin Web Dev",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequireConsent = false,
+
+                    AllowedGrantTypes = {
+                        GrantType.Hybrid
+                    },
 
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
 
-                    RedirectUris           = { "https://localhost:42342/signin-oidc" },
+                    RedirectUris           = { "https://localhost:42342/signin-oidc"  },
                     PostLogoutRedirectUris = { "https://localhost:42342/signout-callback-oidc" },
 
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
                         "ework"
                     },
 
                     AllowOfflineAccess = true
+                },
+                new Client {
+                    ClientId = "ework-admin-swagger",
+                    ClientName = "Swagger UI for EWork Admin",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    RedirectUris = {"https://localhost:42342/swagger/oauth2-redirect.html"},
+                    AllowedScopes = { "ework" }
                 },
                 // JavaScript Client
                 new Client
@@ -125,6 +139,32 @@ namespace IdentityWeb
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "api1"
+                    }
+                },
+
+                new Client
+                {
+                    ClientId = "ework-postman",
+                    ClientName = "Postman Client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    RedirectUris =           { "https://app.getpostman.com/oauth2/callback" },
+                    PostLogoutRedirectUris = { "https://app.getpostman.com" },
+                    AllowedCorsOrigins =     { "https://app.getpostman.com" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "ework"
                     }
                 }
             };
