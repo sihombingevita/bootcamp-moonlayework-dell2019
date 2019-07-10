@@ -5,5 +5,6 @@ namespace Employees.Data.Abstractions
 {
     public interface IEmployeeRepository : IRepository<Employee>
     {
+
     }
 }

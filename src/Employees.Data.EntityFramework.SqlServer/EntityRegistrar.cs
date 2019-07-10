@@ -14,10 +14,11 @@ namespace Employees.Data.EntityFramework.SqlServer
             modelbuilder.Entity<Employee>(etb => {
                 etb.ToTable("Employees");
                 etb.HasKey(e => e.Id);
+                etb.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 etb.Property(p => p.FirstName).HasMaxLength(64).IsRequired();
 
-                etb.Property(e => e.Id).ValueGeneratedOnAdd();
+                etb.HasQueryFilter(m => m.IsDeleted == false);
             });
         }
     }

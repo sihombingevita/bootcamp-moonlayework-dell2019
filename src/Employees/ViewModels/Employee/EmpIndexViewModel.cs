@@ -7,7 +7,7 @@ namespace Employees.ViewModels.Employee
     {
         public EmpIndexViewModel(IEnumerable<Data.Entities.Employee> data)
         {
-            Employees = data;
+            Employees = data ?? new List<Data.Entities.Employee>();
         }
 
         public IEnumerable<Data.Entities.Employee> Employees { get; }
