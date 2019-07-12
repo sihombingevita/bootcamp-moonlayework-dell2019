@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace WebApplication
@@ -37,6 +38,7 @@ namespace WebApplication
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
+
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
@@ -44,8 +46,6 @@ namespace WebApplication
                 options.RequireHttpsMetadata = false;
 
                 options.ClientId = "ework-admin-dev";
-                options.RequireHttpsMetadata = false;
-
                 options.ClientSecret = "secret";
                 options.ResponseType = "code id_token";
 
@@ -56,7 +56,17 @@ namespace WebApplication
                 options.Scope.Add("offline_access");
 
                 options.ClaimActions.MapJsonKey("website", "website");
+            })
+            .AddIdentityServerAuthentication(options =>
+            {
+                options.Authority = "http://localhost:5000";
+                options.RequireHttpsMetadata = false;
+
+                options.ApiSecret = "secret";
+                options.ApiName = "ework";
             });
+
+
 
             services.Configure<StorageContextOptions>(options =>
                 {
@@ -68,6 +78,17 @@ namespace WebApplication
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "My API", Version = "v1" });
+
+                c.AddSecurityDefinition("oauth2", new Swashbuckle.AspNetCore.Swagger.OAuth2Scheme
+                {
+                    Flow = "implicit",
+                    AuthorizationUrl = "http://localhost:5000/connect/authorize",
+                    Scopes = new Dictionary<string, string> {
+                        { "ework", "MoonlayEwork API" }
+                    }
+                });
+
+                c.OperationFilter<Backend.WebApp.Swaggers.AuthorizeCheckOperationFilter>();
             });
 
             DesignTimeStorageContextFactory.Initialize(services.BuildServiceProvider());
@@ -89,12 +110,11 @@ namespace WebApplication
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.OAuthClientId("ework-admin-swagger");
             });
 
             app.UseAuthentication();
             app.UseExtCore();
-
-            //applicationBuilder.UseMvc();
         }
     }
 }

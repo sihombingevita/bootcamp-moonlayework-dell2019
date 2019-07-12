@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
     <PackageReference Include="ExtCore.Data" Version="4.0.0" />
     <PackageReference Include="ExtCore.Mvc" Version="4.0.0" />
@@ -15,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Barebone\Barebone.csproj" />
+    <ProjectReference Include="..\Checkins.Data.EntityFramework.SqlServer\Checkins.Data.EntityFramework.SqlServer.csproj" />
+    <ProjectReference Include="..\Checkins\Checkins.csproj" />
     <ProjectReference Include="..\Employees.Data.EntityFramework.SqlServer\Employees.Data.EntityFramework.SqlServer.csproj" />
     <ProjectReference Include="..\Employees\Employees.csproj" />
   </ItemGroup>

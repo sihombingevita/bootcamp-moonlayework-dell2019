@@ -19,5 +19,16 @@ namespace Data.Entities
 
         [MaxLength(64)]
         public string ModifiedBy { get; set; }
+
+    }
+
+    public interface ISoftDelete
+    {
+        bool IsDeleted { get; set; }
+
+        DateTimeOffset? Deleted { get; set; }
+
+        [MaxLength(64)]
+        string DeleteBy { get; set; }
     }
 }

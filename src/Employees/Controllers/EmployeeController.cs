@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Employees.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class EmployeeController : Barebone.Controllers.ControllerBase
     {
         public EmployeeController(IStorage storage) : base(storage)
@@ -16,7 +16,7 @@ namespace Employees.Controllers
 
         public ActionResult Index(int page = 0, int size = 25)
         {
-            return View(new EmpIndexViewModelFactory().Create(this.Storage, page, size));
+            return View(new EmployeeModelFactory().LoadAll(this.Storage, page, size));
         }
 
         public ActionResult Create()
@@ -31,8 +31,8 @@ namespace Employees.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                Employee employee = model.ToEntity(this.GetCurrentUserName());
-                this.Storage.GetRepository<IEmployeeRepository>().Create(employee);
+                Employee employee = model.ToEntity();
+                this.Storage.GetRepository<IEmployeeRepository>().Create(employee, this.GetCurrentUserName());
                 this.Storage.Save();
 
                 return RedirectToAction("Index");

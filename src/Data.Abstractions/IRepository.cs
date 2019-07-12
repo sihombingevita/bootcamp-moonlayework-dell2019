@@ -11,12 +11,12 @@ namespace Data.Abstractions
 
         IEnumerable<TEntity> All(int page = 0, int size = 25);
 
-        void Create(TEntity entity);
+        void Create(TEntity entity, string username);
 
-        void Edit(TEntity entity);
+        void Edit(TEntity entity, string username);
 
-        void Delete(int id);
+        void Delete(int id, string username);
 
-        void Delete(TEntity entity);
+        void Delete(TEntity entity, string username);
     }
 }
